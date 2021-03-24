@@ -8233,5 +8233,14 @@
     "torrent": "https://bsufiles.thedrhax.pw/streams/958844668.torrent",
     "games": ["first", "snowrunner"],
     "subtitles": "https://blackufa-chats.thedrhax.pw/chats-2021/v958844668.ass"
+  },
+  "961225183": {
+    "abs_start": 0, "abs_end": 21094, "duration": 0,
+    "name": "Paradise Lost",
+    "date": "2021-03-24",
+    "direct": "https://bsufiles.thedrhax.pw/streams/961225183.mp4",
+    "torrent": "https://bsufiles.thedrhax.pw/streams/961225183.torrent",
+    "games": ["single"],
+    "subtitles": "https://blackufa-chats.thedrhax.pw/chats-2021/v961225183.ass"
   }
 }
