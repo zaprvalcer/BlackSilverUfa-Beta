@@ -8256,5 +8256,14 @@
     "torrent": "https://bsufiles.thedrhax.pw/streams/962439245.torrent",
     "games": ["unboxing", "evil-inside", "crash-bandicoot-4"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v962439245.ass"
+  },
+  "963666663": {
+    "abs_start": 0, "abs_end": 23090, "duration": 0,
+    "name": "It Takes Two",
+    "date": "2021-03-26",
+    "direct": "https://bsufiles.thedrhax.pw/streams/963666663.mp4",
+    "torrent": "https://bsufiles.thedrhax.pw/streams/963666663.torrent",
+    "games": ["first"],
+    "subtitles": "https://blacksilverufa.github.io/chats-2021/v963666663.ass"
   }
 }
