@@ -7176,9 +7176,9 @@
   },
   "759389769": {
     "youtube": "nCyijEdFoKE", "official": false, "abs_start": 0, "abs_end": 22816, "duration": 22816,
-    "name": "Crash Bandicoot 4: It's About Time / Night City Wire #1 / SnowRunner #11",
+    "name": "Crash Bandicoot 4: It's About Time #1 / Night City Wire #1 / SnowRunner #11",
     "date": "2020-10-03",
-    "games": ["first", "cp2077-ncw", "snowrunner"],
+    "games": ["crash-bandicoot-4", "cp2077-ncw", "snowrunner"],
     "subtitles": "https://blackufa-chats.thedrhax.pw/chats-2020/v759389769.ass"
   },
   "760503086": {
@@ -7934,9 +7934,9 @@
   },
   "905895866": {
     "youtube": "iwZuEXPMa5c", "official": false, "abs_start": 0, "abs_end": 21897, "duration": 21897,
-    "name": "Forgotten Tunnels - Episode 3 / Potentia (демо) / Graven (демо) / Narita Boy (демо) / Evil Inside (демо) / Minute of Islands (демо) / Escape (демо) / Slender Threads (демо) / Tasomachi (демо)",
+    "name": "Forgotten Tunnels - Episode 3 / Potentia (демо) / Graven (демо) / Narita Boy (демо) / Evil Inside - Демо / Minute of Islands (демо) / Escape (демо) / Slender Threads (демо) / Tasomachi (демо)",
     "date": "2021-02-08",
-    "games": ["forgotten-tunnels", "first", "single"],
+    "games": ["forgotten-tunnels", "first", "single", "evil-inside"],
     "subtitles": "https://blackufa-chats.thedrhax.pw/chats-2021/v905895866.ass"
   },
   "907145168": {
@@ -8235,12 +8235,27 @@
     "subtitles": "https://blackufa-chats.thedrhax.pw/chats-2021/v958844668.ass"
   },
   "961225183": {
-    "abs_start": 0, "abs_end": 21094, "duration": 0,
+    "youtube": "dd2nTLH_EGs", "official": false, "abs_start": 0, "abs_end": 21077, "duration": 21077,
     "name": "Paradise Lost",
     "date": "2021-03-24",
-    "direct": "https://bsufiles.thedrhax.pw/streams/961225183.mp4",
     "torrent": "https://bsufiles.thedrhax.pw/streams/961225183.torrent",
     "games": ["single"],
     "subtitles": "https://blackufa-chats.thedrhax.pw/chats-2021/v961225183.ass"
+  },
+  "961777772": {
+    "youtube": "Xnw2RKMge-c", "official": false, "abs_start": 0, "abs_end": 8275, "duration": 8275,
+    "name": "Doom Eternal #1 (заново)",
+    "date": "2021-03-25",
+    "torrent": "https://bsufiles.thedrhax.pw/streams/961777772.torrent",
+    "games": ["doom-eternal"],
+    "subtitles": "https://blackufa-chats.thedrhax.pw/chats-2021/v961777772.ass"
+  },
+  "962439245": {
+    "youtube": "a0TW8-UwLFU", "official": false, "abs_start": 0, "abs_end": 12765, "duration": 12765,
+    "name": "ROG Flow X13 / Evil Inside - Прохождение / Crash Bandicoot 4: It's About Time #2 (заново)",
+    "date": "2021-03-25",
+    "torrent": "https://bsufiles.thedrhax.pw/streams/962439245.torrent",
+    "games": ["unboxing", "evil-inside", "crash-bandicoot-4"],
+    "subtitles": "https://blackufa-chats.thedrhax.pw/chats-2021/v962439245.ass"
   }
 }

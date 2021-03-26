@@ -1515,10 +1515,19 @@
       { "name": "Resident Evil Village (демо)", "segment": "883419848" },
       { "name": "The Medium", "segment": "891206240" },
       { "name": "NUTS", "segment": "901835689", "start": 9828 },
-      { "name": "Narita Boy (демо) / Evil Inside (демо)", "segment": "905895866", "start": 12342 },
+      { "name": "Narita Boy (демо)", "segment": "905895866", "start": 12342 },
       { "name": "Voyage", "segment": "937766301" },
       { "name": "Mundaun", "segment": "952632063" },
       { "name": "Paradise Lost", "segment": "961225183" }
+    ]
+  },
+  {
+    "name": "Evil Inside",
+    "category": "finished",
+    "id": "evil-inside",
+    "streams": [
+      { "name": "Демо", "segment": "905895866", "start": 15966 },
+      { "name": "Прохождение", "segment": "962439245", "start": 5928 }
     ]
   },
   {
@@ -1773,7 +1782,8 @@
       { "name": "Asus ROG Strix Scope", "segment": "675494632" },
       { "name": "Asus ROG Chariot Core / Xbox Series X", "segment": "792632708" },
       { "name": "Sony PlayStation 5", "segment": "806256296" },
-      { "name": "Asus ROG Zephyrus G14", "segment": "812974689" }
+      { "name": "Asus ROG Zephyrus G14", "segment": "812974689" },
+      { "name": "ROG Flow X13", "segment": "962439245" }
     ]
   },
   {
@@ -1982,7 +1992,6 @@
       { "name": "Crysis: Remastered", "segment": "746844135" },
       { "name": "BPM: Bullets Per Minute", "segment": "747742325" },
       { "name": "Star Wars: Squadrons", "segment": "758360932" },
-      { "name": "Crash Bandicoot 4: It's About Time", "segment": "759389769" },
       { "name": "Baldur's Gate 3", "segment": "763202430" },
       { "name": "Partisans 1941 (демо) / F.I.S.T.: Forged In Shadow Torch (демо)", "segment": "767249770", "start": 9012 },
       { "name": "AquaNox: Deep Descent / Fishing: North Atlantic", "segment": "772063368" },
@@ -2017,6 +2026,15 @@
       { "name": "Lust from Beyond / Dead Rising", "segment": "950210383" },
       { "name": "ALTF4", "segment": "953865835" },
       { "name": "The Eternal Cylinder / Wanted Raccoon", "segment": "958844668" }
+    ]
+  },
+  {
+    "name": "Crash Bandicoot 4: It's About Time",
+    "category": "ongoing",
+    "id": "crash-bandicoot-4",
+    "streams": [
+      { "name": "1", "segment": "759389769" },
+      { "name": "2 (заново)", "segment": "962439245", "start": 9745 }
     ]
   },
   {
@@ -2582,7 +2600,8 @@
       { "name": "3", "segment": "571133425" },
       { "name": "4 (The Ancient Gods: Part One)", "segment": "780320448", "start": 9848 },
       { "name": "5 (The Ancient Gods: Part One)", "segment": "781406533" },
-      { "name": "6 (The Ancient Gods: Part Two)", "segment": "955030446" }
+      { "name": "6 (The Ancient Gods: Part Two)", "segment": "955030446" },
+      { "name": "1 (заново)", "segment": "961777772" }
     ]
   },
   {
@@ -4007,7 +4026,7 @@
       { "name": "2", "segment": "252814465" },
       { "name": "3 (часть 1)", "segment": "253221134" },
       { "name": "3 (часть 2)", "segment": "253271374" },
-      { "name": "4 (часть 1, финал)", "segment": "253604008", "end": 7366 },
+      { "name": "4 (часть 1, финал)", "segment": "253604008", "end": 7856 },
       { "name": "4 (часть 2)", "segment": "253604008.1" },
       { "name": "5", "segment": "255465280" },
       { "name": "6", "segment": "255759468" }
