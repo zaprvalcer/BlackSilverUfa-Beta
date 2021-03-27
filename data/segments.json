@@ -8085,7 +8085,6 @@
     "youtube": "tTvQHxfvnfg", "abs_start": 0, "abs_end": 9525, "duration": 9525,
     "name": "Yakuza: Like a Dragon #2",
     "date": "2021-02-27",
-    "torrent": "https://bsufiles.thedrhax.pw/streams/929556422.torrent",
     "games": ["yakuza-like-dragon"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v929556422.ass"
   },
@@ -8093,7 +8092,6 @@
     "youtube": "MrX0RV79GEA", "abs_start": 0, "abs_end": 28689, "duration": 28689,
     "name": "HellSign / Breathedge #3 / Yakuza: Like a Dragon #3",
     "date": "2021-03-01",
-    "torrent": "https://bsufiles.thedrhax.pw/streams/932891083.torrent",
     "games": ["first", "breathedge", "yakuza-like-dragon"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v932891083.ass"
   },
@@ -8259,10 +8257,19 @@
   },
   "963666663": {
     "youtube": "tg2aLiQqiCs", "official": false, "abs_start": 0, "abs_end": 23073, "duration": 23073,
-    "name": "It Takes Two",
+    "name": "It Takes Two #1",
     "date": "2021-03-26",
     "torrent": "https://bsufiles.thedrhax.pw/streams/963666663.torrent",
-    "games": ["first"],
+    "games": ["it-takes-two"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v963666663.ass"
+  },
+  "965027459": {
+    "abs_start": 0, "abs_end": 25518, "duration": 0,
+    "name": "It Takes Two #2",
+    "date": "2021-03-27",
+    "direct": "https://bsufiles.thedrhax.pw/streams/965027459.mp4",
+    "torrent": "https://bsufiles.thedrhax.pw/streams/965027459.torrent",
+    "games": ["it-takes-two"],
+    "subtitles": "https://blacksilverufa.github.io/chats-2021/v965027459.ass"
   }
 }
