@@ -8270,5 +8270,14 @@
     "torrent": "https://bsufiles.thedrhax.pw/streams/965027459.torrent",
     "games": ["it-takes-two"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v965027459.ass"
+  },
+  "966354094": {
+    "abs_start": 0, "abs_end": 10139, "duration": 0,
+    "name": "It Takes Two #3",
+    "date": "2021-03-28",
+    "direct": "https://bsufiles.thedrhax.pw/streams/966354094.mp4",
+    "torrent": "https://bsufiles.thedrhax.pw/streams/966354094.torrent",
+    "games": ["it-takes-two"],
+    "subtitles": "https://blacksilverufa.github.io/chats-2021/v966354094.ass"
   }
 }

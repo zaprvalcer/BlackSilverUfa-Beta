@@ -2030,11 +2030,12 @@
   },
   {
     "name": "It Takes Two",
-    "category": "ongoing",
+    "category": "finished",
     "id": "it-takes-two",
     "streams": [
       { "name": "1", "segment": "963666663" },
-      { "name": "2", "segment": "965027459" }
+      { "name": "2", "segment": "965027459" },
+      { "name": "3", "segment": "966354094" }
     ]
   },
   {
