@@ -8106,7 +8106,6 @@
     "youtube": "myrj9iYCY_w", "abs_start": 0, "abs_end": 9169, "duration": 9169,
     "name": "Yakuza: Like a Dragon #5",
     "date": "2021-03-03",
-    "torrent": "https://bsufiles.thedrhax.pw/streams/934599690.torrent",
     "games": ["yakuza-like-dragon"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v934599690.ass"
   },
@@ -8114,7 +8113,6 @@
     "youtube": "4aawYzYcxkA", "abs_start": 0, "abs_end": 26197, "duration": 26197,
     "name": "Winter Survival Simulator (демо) / Maquette / Yakuza: Like a Dragon #6",
     "date": "2021-03-03",
-    "torrent": "https://bsufiles.thedrhax.pw/streams/935303434.torrent",
     "games": ["first", "yakuza-like-dragon"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v935303434.ass"
   },
@@ -8279,12 +8277,20 @@
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v966354094.ass"
   },
   "967584774": {
-    "abs_start": 0, "abs_end": 17340, "duration": 0,
+    "youtube": "Y9naef8VpXI", "official": false, "abs_start": 0, "abs_end": 17333, "duration": 17333,
     "name": "Spacebase Startopia",
     "date": "2021-03-29",
-    "direct": "https://bsufiles.thedrhax.pw/streams/967584774.mp4",
     "torrent": "https://bsufiles.thedrhax.pw/streams/967584774.torrent",
     "games": ["first"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v967584774.ass"
+  },
+  "968731343": {
+    "abs_start": 0, "abs_end": 27248, "duration": 0,
+    "name": "Yakuza: Like a Dragon #13 / PlayerUnknown's Battlegrounds #6",
+    "date": "2021-03-30",
+    "direct": "https://bsufiles.thedrhax.pw/streams/968731343.mp4",
+    "torrent": "https://bsufiles.thedrhax.pw/streams/968731343.torrent",
+    "games": ["yakuza-like-dragon", "pubg"],
+    "subtitles": "https://blacksilverufa.github.io/chats-2021/v968731343.ass"
   }
 }
