@@ -2021,13 +2021,22 @@
       { "name": "Potentia (демо) / Graven (демо) / Minute of Islands (демо) / Escape (демо) / Slender Threads (демо) / Tasomachi (демо)", "segment": "905895866", "start": 6713 },
       { "name": "SuchArt: Genius Artist Simulator", "segment": "912392953", "start": 9639 },
       { "name": "What Lives Below (демо)", "segment": "916293705" },
-      { "name": "System Shock (демо) / Outriders (демо)", "segment": "928993182" },
+      { "name": "System Shock (демо)", "segment": "928993182" },
       { "name": "HellSign", "segment": "932891083" },
       { "name": "Winter Survival Simulator (демо) / Maquette", "segment": "935303434" },
       { "name": "Lust from Beyond / Dead Rising", "segment": "950210383" },
       { "name": "ALTF4", "segment": "953865835" },
       { "name": "The Eternal Cylinder / Wanted Raccoon", "segment": "958844668" },
       { "name": "Spacebase Startopia", "segment": "967584774" }
+    ]
+  },
+  {
+    "name": "Outriders",
+    "category": "ongoing",
+    "id": "outriders",
+    "streams": [
+      { "name": "1 (демо)", "segment": "928993182", "start": 7510 },
+      { "name": "2", "segment": "970047432" }
     ]
   },
   {

@@ -8076,9 +8076,9 @@
   },
   "928993182": {
     "youtube": "TUgjIYuIzq0", "abs_start": 0, "abs_end": 21765, "duration": 21765,
-    "name": "System Shock (демо) / Outriders (демо) / Breathedge #2",
+    "name": "System Shock (демо) / Outriders #1 (демо) / Breathedge #2",
     "date": "2021-02-26",
-    "games": ["first", "breathedge"],
+    "games": ["first", "outriders", "breathedge"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v928993182.ass"
   },
   "929556422": {
@@ -8120,7 +8120,6 @@
     "youtube": "ZpeTZNKr4CU", "abs_start": 0, "abs_end": 28106, "duration": 28106,
     "name": "Yakuza: Like a Dragon #7",
     "date": "2021-03-04",
-    "torrent": "https://bsufiles.thedrhax.pw/streams/936535434.torrent",
     "games": ["yakuza-like-dragon"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v936535434.ass"
   },
@@ -8291,5 +8290,14 @@
     "torrent": "https://bsufiles.thedrhax.pw/streams/968731343.torrent",
     "games": ["yakuza-like-dragon", "pubg"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v968731343.ass"
+  },
+  "970047432": {
+    "abs_start": 0, "abs_end": 15054, "duration": 0,
+    "name": "Outriders #2",
+    "date": "2021-03-31",
+    "direct": "https://bsufiles.thedrhax.pw/streams/970047432.mp4",
+    "torrent": "https://bsufiles.thedrhax.pw/streams/970047432.torrent",
+    "games": ["outriders"],
+    "subtitles": "https://blacksilverufa.github.io/chats-2021/v970047432.ass"
   }
 }
