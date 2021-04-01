@@ -8303,8 +8303,9 @@
     "name": "Super Seducer 3",
     "date": "2021-04-01",
     "direct": "https://bsufiles.thedrhax.pw/streams/971240375.mp4",
+    "cuts": [[10580, 12672]],
     "torrent": "https://bsufiles.thedrhax.pw/streams/971240375.torrent",
     "games": ["first"],
-    "subtitles": "https://blacksilverufa.github.io/chats-2021/v971240375.ass"
+    "subtitles": "https://blacksilverufa.github.io/chats-generated/v971240375+0.ass"
   }
 }
