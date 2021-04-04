@@ -302,7 +302,8 @@
       { "name": "In Silence", "segment": "827759529", "start": 8249 },
       { "name": "Granny Simulator", "segment": "855161482", "start": 5284 },
       { "name": "Devour / Hand Simulator: Horror", "segment": "895496717" },
-      { "name": "Draw & Guess / Unlasting Horror / Hide and Seek / Golf Party", "segment": "957785419" }
+      { "name": "Draw & Guess / Unlasting Horror / Hide and Seek / Golf Party", "segment": "957785419" },
+      { "name": "Knockout City (WLG, Bale)", "segment": "975061581", "start": 11486 }
     ]
   },
   {
@@ -1761,7 +1762,8 @@
       { "name": "Розыгрыш Asus ROG Strix Scope", "segment": "676500778" },
       { "name": "Розыгрыш Asus ROG GA502IV", "segment": "768182935" },
       { "name": "Розыгрыш флешек Asus ROG и ACRONYM", "segment": "815193918" },
-      { "name": "Розыгрыш NVIDIA GeForce RTX 2080 Super", "segment": "823035178" }
+      { "name": "Розыгрыш NVIDIA GeForce RTX 2080 Super", "segment": "823035178" },
+      { "name": "Игровые коллекции зрителей", "segment": "975061581", "start": 9662 }
     ]
   },
   {
@@ -3489,7 +3491,8 @@
       { "name": "3", "segment": "370111835" },
       { "name": "4 (Клэр \"A\" от первого лица)", "segment": "376053722" },
       { "name": "5 (DLC - Выжившие призраки)", "segment": "383771606" },
-      { "name": "6 (Every enemy is Mr. X)", "segment": "527412040" }
+      { "name": "6 (Every enemy is Mr. X)", "segment": "527412040" },
+      { "name": "7 (заново)", "segment": "975061581" }
     ],
     "cover": 1
   },
