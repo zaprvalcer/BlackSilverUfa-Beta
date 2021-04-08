@@ -8141,7 +8141,6 @@
     "youtube": "WjEAgrXvrzI", "abs_start": 0, "abs_end": 32408, "duration": 32408,
     "name": "Yakuza: Like a Dragon #9",
     "date": "2021-03-08",
-    "torrent": "https://bsufiles.thedrhax.pw/streams/941624679.torrent",
     "games": ["yakuza-like-dragon"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v941624679.ass"
   },
@@ -8329,5 +8328,14 @@
     "torrent": "https://bsufiles.thedrhax.pw/streams/979229370.torrent",
     "games": ["doom-eternal"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v979229370.ass"
+  },
+  "979835510": {
+    "abs_start": 0, "abs_end": 24928, "duration": 0,
+    "name": "Oddworld: Soulstorm / Silent Hill",
+    "date": "2021-04-08",
+    "direct": "https://bsufiles.thedrhax.pw/streams/979835510.mp4",
+    "torrent": "https://bsufiles.thedrhax.pw/streams/979835510.torrent",
+    "games": ["first"],
+    "subtitles": "https://blacksilverufa.github.io/chats-2021/v979835510.ass"
   }
 }
