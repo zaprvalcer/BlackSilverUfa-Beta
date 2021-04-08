@@ -8323,10 +8323,9 @@
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v975061581.ass"
   },
   "979229370": {
-    "abs_start": 0, "abs_end": 3272, "duration": 0,
+    "youtube": "u5_DBew8Brk", "official": false, "abs_start": 0, "abs_end": 3245, "duration": 3245,
     "name": "Doom Eternal #2 (без комментариев)",
     "date": "2021-04-08",
-    "direct": "https://bsufiles.thedrhax.pw/streams/979229370.mp4",
     "torrent": "https://bsufiles.thedrhax.pw/streams/979229370.torrent",
     "games": ["doom-eternal"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v979229370.ass"
