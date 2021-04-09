@@ -8331,11 +8331,20 @@
   },
   "979835510": {
     "abs_start": 0, "abs_end": 24928, "duration": 0,
-    "name": "Oddworld: Soulstorm / Silent Hill",
+    "name": "Oddworld: Soulstorm / Silent Hill #1",
     "date": "2021-04-08",
     "direct": "https://bsufiles.thedrhax.pw/streams/979835510.mp4",
     "torrent": "https://bsufiles.thedrhax.pw/streams/979835510.torrent",
-    "games": ["first"],
+    "games": ["first", "sh"],
     "subtitles": "https://blacksilverufa.github.io/chats-2021/v979835510.ass"
+  },
+  "980365564": {
+    "abs_start": 0, "abs_end": 9522, "duration": 0,
+    "name": "Silent Hill #2",
+    "date": "2021-04-09",
+    "direct": "https://bsufiles.thedrhax.pw/streams/980365564.mp4",
+    "torrent": "https://bsufiles.thedrhax.pw/streams/980365564.torrent",
+    "games": ["sh"],
+    "subtitles": "https://blacksilverufa.github.io/chats-2021/v980365564.ass"
   }
 }
