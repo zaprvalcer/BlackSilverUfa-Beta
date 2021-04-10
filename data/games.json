@@ -2032,8 +2032,7 @@
       { "name": "Spacebase Startopia", "segment": "967584774" },
       { "name": "Super Seducer 3", "segment": "971240375" },
       { "name": "Last Oasis", "segment": "972475218" },
-      { "name": "Oddworld: Soulstorm", "segment": "979835510" },
-      { "name": "Silent Hill 2", "segment": "981050724" }
+      { "name": "Oddworld: Soulstorm", "segment": "979835510" }
     ]
   },
   {
@@ -2043,6 +2042,15 @@
     "streams": [
       { "name": "1", "segment": "979835510", "start": 7425 },
       { "name": "2", "segment": "980365564" }
+    ]
+  },
+  {
+    "name": "Silent Hill 2",
+    "category": "finished",
+    "id": "sh2",
+    "streams": [
+      { "name": "1", "segment": "981050724" },
+      { "name": "2", "segment": "982375076" }
     ]
   },
   {
