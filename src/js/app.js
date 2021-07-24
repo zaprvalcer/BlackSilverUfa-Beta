@@ -12,7 +12,7 @@ import { Button } from 'react-bootstrap';
 import t from './constants/texts';
 import PATHS from './constants/urls';
 // Components
-import HomePage from './components/interactive-search';
+import { InteractiveSearch } from './pages';
 import GamePage from './components/game';
 import PlayerPage from './components/segment-player';
 import { RedirectLinks, RedirectR } from './components/redirects';
@@ -29,13 +29,9 @@ const App = () => (
       <Route
         exact
         path={PATHS.HOME}
-        render={({ location }) => {
-          if (location.hash.startsWith('#/')) {
-            return <Redirect to={location.hash.substring(1)} />;
-          } else {
-            return <HomePage />;
-          }
-        }}
+        render={({ location }) => (location.hash.startsWith('#/')
+          ? <Redirect to={location.hash.substring(1)} />
+          : <InteractiveSearch />)}
       />
       <Route path="*">
         <BasePage flex>
