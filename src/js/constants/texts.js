@@ -20,4 +20,23 @@ export default {
     runningLabel: 'Идёт поиск...',
     moreLabel: 'Показать ещё',
   },
+  mainPage: {
+    modes: {
+      segments: 'Стримы',
+      games: 'Игры',
+    },
+    scales: {
+      month: 'День',
+      year: 'Месяц',
+      decade: 'Год',
+    },
+    streams: [
+      'стримов',
+      'стрим',
+      'стрима',
+      'стрима',
+      'стрима',
+      'стримов',
+    ],
+  },
 };

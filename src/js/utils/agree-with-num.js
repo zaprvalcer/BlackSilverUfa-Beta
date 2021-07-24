@@ -1,3 +1,4 @@
+// TODO: remove when fully migrated to util from utils/text.js @zaprvalcer
 export default function agreeWithNum(number, word, endings) {
   if (number >= 20) {
     number %= 10;

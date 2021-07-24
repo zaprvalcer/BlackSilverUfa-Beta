@@ -15,9 +15,8 @@ import {
 import { Data } from '../../data';
 import fts, { tokenize } from '../../utils/full-text-search';
 import config from '../../../../config/config.json';
-import agreeWithNum from '../../utils/agree-with-num';
 import updateState from '../../utils/update-state';
-import DateFilter from '../../components/search/date-filter';
+import DateFilter from './date-filter';
 import BasePage from '../../components/base-page';
 import {
   SegmentsList,
@@ -42,8 +41,8 @@ class InteractiveSearch extends React.Component {
       filters: {
         text: '',
         category: 'any',
-        dateStart: null,
-        dateEnd: null,
+        startDate: null,
+        endDate: null,
       },
       sorting: {
         mode: 'date',
@@ -88,15 +87,15 @@ class InteractiveSearch extends React.Component {
       chain = segments.chain();
 
       {
-        const { filters: { dateStart, dateEnd } } = this.state;
+        const { filters: { startDate, endDate } } = this.state;
 
-        if (dateStart) {
-          if (dateEnd) {
+        if (startDate) {
+          if (endDate) {
             chain = chain.find({
-              date: { $between: [dateStart, dateEnd] },
+              date: { $between: [startDate, endDate] },
             });
           } else {
-            chain = chain.find({ date: { $dteq: dateStart } });
+            chain = chain.find({ date: { $dteq: startDate } });
           }
         }
       }
@@ -161,41 +160,13 @@ class InteractiveSearch extends React.Component {
     const components = [];
 
     if (mode === 'segments') {
-      const minDate = new Date(segments.min('date'));
-      const maxDate = new Date(segments.max('date'));
-
       components.push(
         <DateFilter
           key="date"
-          xs={12}
-          sm={8}
-          md={6}
-          lg={4}
-          minDate={minDate}
-          maxDate={maxDate}
-          tileContent={({ date, view }) => {
-            if (view === 'month' || date > maxDate) return null;
-            const range = DateFilter.dateToRange(date, view);
-            const count = segments.count({ date: { $between: range } });
-            return (
-              <div>
-                {count}
-                {' '}
-                {agreeWithNum(count, 'стрим', ['', 'а', 'ов'])}
-              </div>
-            );
-          }}
-          tileClassName={({ date, view }) => {
-            if (view !== 'month') return null;
-            const count = segments.count({ date: { $dteq: date } });
-            return count > 0 ? 'bg-lightgreen' : 'bg-lightcoral';
-          }}
-          onChange={(start, end) => updateState(this, {
-            filters: {
-              dateStart: { $set: start },
-              dateEnd: { $set: end },
-            },
-          }, this.submitForm)}
+          startDate={filters.startDate}
+          endDate={filters.endDate}
+          segments={segments}
+          onChange={(input) => updateState(this, { filters: { $merge: input } }, this.submitForm)}
         />,
       );
     } else if (mode === 'games') {
