@@ -1,20 +1,10 @@
 import React from 'react';
 import animateScrollTo from 'animated-scroll-to';
-import {
-  Row,
-  Col,
-  Form,
-  InputGroup,
-  Button,
-  Alert,
-  Card,
-} from 'react-bootstrap';
-
+import { Row, Col, Alert } from 'react-bootstrap';
 import { Data } from '../../data';
 import fts, { tokenize } from '../../utils/full-text-search';
 import config from '../../../../config/config.json';
 import updateState from '../../utils/update-state';
-import DateFilter from './date-filter';
 import BasePage from '../../components/base-page';
 import t from '../../constants/texts';
 import {
@@ -25,19 +15,7 @@ import {
 import BigSpinner from '../../components/big-spinner';
 import Matomo from '../../matomo';
 // Components
-import Select from './select';
-import Dropdown from './dropdown';
-
-const MODES = ['segments', 'games'];
-const SORT_OPTIONS = {
-  segments: ['date'],
-  games: ['date', 'stream_count'],
-};
-
-const SORT_ICONS = {
-  desc: 'fa-sort-amount-down',
-  asc: 'fa-sort-amount-up',
-};
+import ControlPanel from './control-panel';
 
 const convertCategories = (data) => Object.values(data)
   .filter(({ search }) => search !== false)
@@ -171,104 +149,6 @@ class InteractiveSearch extends React.Component {
     });
   }
 
-  filters() {
-    const {
-      data: { segments, categories },
-      mode, filters, sorting,
-    } = this.state;
-
-    const components = [];
-
-    if (mode === 'segments') {
-      components.push(
-        <DateFilter
-          key="date"
-          startDate={filters.startDate}
-          endDate={filters.endDate}
-          segments={segments}
-          onChange={(input) => updateState(this, { filters: { $merge: input } }, this.submitForm)}
-        />,
-      );
-    } else if (mode === 'games') {
-      components.push(<Select
-        xs={12}
-        sm={8}
-        md={6}
-        lg={4}
-        key="category"
-        value={filters.category}
-        label={t.mainPage.category}
-        labels={categories}
-        options={Object.keys(categories)}
-        onChange={(input) => updateState(this, {
-          filters: { category: { $set: input } },
-        }, this.submitForm)}
-      />);
-    }
-
-    const direction = sorting.desc ? 'desc' : 'asc';
-
-    components.push(
-      <Select
-        xs={12}
-        sm={8}
-        md={6}
-        lg={4}
-        key="sorting"
-        value={sorting.mode}
-        label={t.mainPage.sorting}
-        labels={t.mainPage.sortModes}
-        options={SORT_OPTIONS[mode]}
-        iconClassName={SORT_ICONS[direction]}
-        onIconClick={() => updateState(this, {
-          sorting: { $toggle: ['desc'] },
-        }, this.submitForm)}
-        onChange={(input) => updateState(this, {
-          sorting: { mode: { $set: input } },
-        }, this.submitForm)}
-      />,
-    );
-
-    return <Form.Row>{components}</Form.Row>;
-  }
-
-  inputForm() {
-    const { mode } = this.state;
-
-    return (
-      <Form onSubmit={this.submitForm}>
-        <InputGroup>
-          <InputGroup.Prepend>
-            <Dropdown
-              value={mode}
-              options={MODES}
-              variant="success"
-              labels={t.mainPage.modes}
-              onChange={(input) => updateState(this, {
-                mode: { $set: input },
-                sorting: {
-                  mode: { $set: 'date' },
-                },
-              }, this.submitForm)}
-            />
-          </InputGroup.Prepend>
-          <Form.Control
-            onChange={(event) => updateState(this, {
-              filters: { text: { $set: event.target.value } },
-            })}
-            onKeyPress={(event) => { if (event.code === 'Enter') this.submitForm(event); }}
-            type="text"
-            placeholder="Поиск по названию"
-          />
-          <InputGroup.Append>
-            <Button variant="primary" onClick={this.submitForm}>Найти</Button>
-          </InputGroup.Append>
-        </InputGroup>
-        {this.filters()}
-      </Form>
-    );
-  }
-
   onPageChange(newPage) {
     updateState(this, {
       results: {
@@ -280,16 +160,17 @@ class InteractiveSearch extends React.Component {
   }
 
   render() {
-    const { data, loaded, results: { items, page, mode } } = this.state;
+    const { data, loaded, mode, results, filters, sorting } = this.state;
 
     if (!loaded) {
       return <BigSpinner />;
     }
 
     let renderer = null;
-    if (mode === 'segments') {
+    // TODO: will be improved in next commits @zaprvalcer
+    if (results.mode === 'segments') {
       renderer = SegmentsList;
-    } if (mode === 'games') {
+    } if (results.mode === 'games') {
       renderer = GamesList;
     }
 
@@ -303,17 +184,20 @@ class InteractiveSearch extends React.Component {
             </Alert>
           </Col>
         </Row>
-        <Row className="interactive-search-form">
-          <Col>
-            <Card className="w-100 h-0 pl-3 pr-3 pt-3 pb-2">
-              {this.inputForm()}
-            </Card>
-          </Col>
-        </Row>
+        <ControlPanel
+          mode={mode}
+          filters={filters}
+          sorting={sorting}
+          segments={data.segments}
+          categories={data.categories}
+          onSubmit={this.submitForm}
+          onChange={(input) => updateState(this, input, this.submitForm)}
+          onQueryChange={(input) => updateState(this, { filters: { text: { $set: input } } })}
+        />
         {renderer ? (
           <ResultsPagination
-            items={items}
-            page={page}
+            items={results.items}
+            page={results.page}
             onPageChange={this.onPageChange}
             max={10}
             renderer={renderer}

@@ -24,6 +24,8 @@ export default {
     sorting: 'Сортировка',
     category: 'Категория',
     categoryAny: 'Любая',
+    queryPlaceholder: 'Поиск по названию',
+    search: 'Найти',
     sortModes: {
       date: 'дата',
       stream_count: 'стримы',

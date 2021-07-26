@@ -52,7 +52,7 @@ const getDayClassName = ({ date, segments }) => {
 
 const DEFAULT_SCALE = 'year';
 
-const DateFilter = ({ startDate, endDate, segments, onChange }) => {
+const DateFilter = ({ startDate, endDate, segments, onChange, ...rest }) => {
   const [scale, setScale] = useState(DEFAULT_SCALE);
   const [date, setDate] = useState();
 
@@ -66,13 +66,7 @@ const DateFilter = ({ startDate, endDate, segments, onChange }) => {
   };
 
   return (
-    <InputGroup
-      as={Col}
-      xs={12}
-      sm={8}
-      md={6}
-      lg={4}
-    >
+    <InputGroup as={Col} {...rest}>
       <InputGroup.Prepend>
         <Dropdown
           value={scale}
