@@ -21,6 +21,13 @@ export default {
     moreLabel: 'Показать ещё',
   },
   mainPage: {
+    sorting: 'Сортировка',
+    category: 'Категория',
+    categoryAny: 'Любая',
+    sortModes: {
+      date: 'дата',
+      stream_count: 'стримы',
+    },
     modes: {
       segments: 'Стримы',
       games: 'Игры',

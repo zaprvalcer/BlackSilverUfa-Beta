@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 // Components
 import { InputGroup, Col, Button } from 'react-bootstrap';
-import { Dropdown } from '../../components';
+import Dropdown from './dropdown';
 import DateRangePicker from './date-range-picker';
 import DatePicker from './date-picker';
 // Namespace

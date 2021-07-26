@@ -1,12 +1,10 @@
 import React from 'react';
 import animateScrollTo from 'animated-scroll-to';
-import { invert } from 'lodash/object';
 import {
   Row,
   Col,
   Form,
   InputGroup,
-  Dropdown,
   Button,
   Alert,
   Card,
@@ -18,6 +16,7 @@ import config from '../../../../config/config.json';
 import updateState from '../../utils/update-state';
 import DateFilter from './date-filter';
 import BasePage from '../../components/base-page';
+import t from '../../constants/texts';
 import {
   SegmentsList,
   GamesList,
@@ -25,6 +24,27 @@ import {
 } from '../../components/search/results';
 import BigSpinner from '../../components/big-spinner';
 import Matomo from '../../matomo';
+// Components
+import Select from './select';
+import Dropdown from './dropdown';
+
+const MODES = ['segments', 'games'];
+const SORT_OPTIONS = {
+  segments: ['date'],
+  games: ['date', 'stream_count'],
+};
+
+const SORT_ICONS = {
+  desc: 'fa-sort-amount-down',
+  asc: 'fa-sort-amount-up',
+};
+
+const convertCategories = (data) => Object.values(data)
+  .filter(({ search }) => search !== false)
+  .reduce((result, current) => {
+    result[current.id] = current.name;
+    return result;
+  }, { any: t.mainPage.categoryAny });
 
 class InteractiveSearch extends React.Component {
   constructor(props) {
@@ -62,7 +82,7 @@ class InteractiveSearch extends React.Component {
   loadData() {
     return Data.then(({ segments, categories, index }) => {
       updateState(this, {
-        data: { $merge: { segments, categories, index } },
+        data: { $merge: { index, segments, categories: convertCategories(categories.data) } },
         loaded: { $set: true },
       });
     });
@@ -170,83 +190,44 @@ class InteractiveSearch extends React.Component {
         />,
       );
     } else if (mode === 'games') {
-      const { category } = filters;
-
-      const catMap = Object.assign({ any: 'Любая' },
-        ...Object.values(categories.data)
-          .filter(({ search }) => search !== false)
-          .map(({ id, name }) => ({ [id]: name })));
-
-      const invCatMap = invert(catMap);
-
-      components.push(
-        <InputGroup key="category" xs={12} sm={8} md={6} lg={4} as={Col}>
-          <InputGroup.Prepend>
-            <InputGroup.Text>Категория:</InputGroup.Text>
-          </InputGroup.Prepend>
-          <Form.Control
-            as="select"
-            custom
-            value={catMap[category]}
-            onChange={({ target: { value } }) => updateState(this, {
-              filters: { category: { $set: invCatMap[value] } },
-            }, this.submitForm)}
-          >
-            {Object.entries(catMap).map(([key, name]) => (
-              <option key={key}>{name}</option>
-            ))}
-          </Form.Control>
-        </InputGroup>,
-      );
+      components.push(<Select
+        xs={12}
+        sm={8}
+        md={6}
+        lg={4}
+        key="category"
+        value={filters.category}
+        label={t.mainPage.category}
+        labels={categories}
+        options={Object.keys(categories)}
+        onChange={(input) => updateState(this, {
+          filters: { category: { $set: input } },
+        }, this.submitForm)}
+      />);
     }
 
-    {
-      const { mode: sortMode, desc } = sorting;
+    const direction = sorting.desc ? 'desc' : 'asc';
 
-      const sortModes = {
-        date: 'дата',
-      };
-
-      if (mode === 'games') {
-        sortModes.stream_count = 'стримы';
-      }
-
-      const invSortModes = invert(sortModes);
-
-      components.push(
-        <InputGroup key="sorting" xs={12} sm={8} md={6} lg={4} as={Col}>
-          <InputGroup.Prepend>
-            <InputGroup.Text>Сортировка:</InputGroup.Text>
-          </InputGroup.Prepend>
-          <Form.Control
-            as="select"
-            custom
-            value={sortModes[sortMode]}
-            onChange={({ target: { value } }) => updateState(this, {
-              sorting: { mode: { $set: invSortModes[value] } },
-            }, this.submitForm)}
-          >
-            {Object.entries(sortModes).map(([key, name]) => (
-              <option key={key}>{name}</option>
-            ))}
-          </Form.Control>
-          <InputGroup.Append>
-            <Button
-              variant="dark"
-              onClick={() => updateState(this, {
-                sorting: { $toggle: ['desc'] },
-              }, this.submitForm)}
-            >
-              {desc ? (
-                <i className="fas fa-sort-amount-down" />
-              ) : (
-                <i className="fas fa-sort-amount-up" />
-              )}
-            </Button>
-          </InputGroup.Append>
-        </InputGroup>,
-      );
-    }
+    components.push(
+      <Select
+        xs={12}
+        sm={8}
+        md={6}
+        lg={4}
+        key="sorting"
+        value={sorting.mode}
+        label={t.mainPage.sorting}
+        labels={t.mainPage.sortModes}
+        options={SORT_OPTIONS[mode]}
+        iconClassName={SORT_ICONS[direction]}
+        onIconClick={() => updateState(this, {
+          sorting: { $toggle: ['desc'] },
+        }, this.submitForm)}
+        onChange={(input) => updateState(this, {
+          sorting: { mode: { $set: input } },
+        }, this.submitForm)}
+      />,
+    );
 
     return <Form.Row>{components}</Form.Row>;
   }
@@ -258,35 +239,18 @@ class InteractiveSearch extends React.Component {
       <Form onSubmit={this.submitForm}>
         <InputGroup>
           <InputGroup.Prepend>
-            <Dropdown>
-              <Dropdown.Toggle variant="success">
-                {mode === 'segments' ? 'Стримы' : 'Игры'}
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item
-                  active={mode === 'segments'}
-                  onClick={() => updateState(this, {
-                    mode: { $set: 'segments' },
-                    sorting: {
-                      mode: { $set: 'date' },
-                    },
-                  }, this.submitForm)}
-                >
-                  Стримы
-                </Dropdown.Item>
-                <Dropdown.Item
-                  active={mode === 'games'}
-                  onClick={() => updateState(this, {
-                    mode: { $set: 'games' },
-                    sorting: {
-                      mode: { $set: 'date' },
-                    },
-                  }, this.submitForm)}
-                >
-                  Игры
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            <Dropdown
+              value={mode}
+              options={MODES}
+              variant="success"
+              labels={t.mainPage.modes}
+              onChange={(input) => updateState(this, {
+                mode: { $set: input },
+                sorting: {
+                  mode: { $set: 'date' },
+                },
+              }, this.submitForm)}
+            />
           </InputGroup.Prepend>
           <Form.Control
             onChange={(event) => updateState(this, {
