@@ -7,15 +7,11 @@ import config from '../../../../config/config.json';
 import updateState from '../../utils/update-state';
 import BasePage from '../../components/base-page';
 import t from '../../constants/texts';
-import {
-  SegmentsList,
-  GamesList,
-  ResultsPagination,
-} from '../../components/search/results';
 import BigSpinner from '../../components/big-spinner';
 import Matomo from '../../matomo';
 // Components
 import ControlPanel from './control-panel';
+import SearchResults from './search-results';
 
 const convertCategories = (data) => Object.values(data)
   .filter(({ search }) => search !== false)
@@ -54,7 +50,6 @@ class InteractiveSearch extends React.Component {
     };
 
     this.submitForm = this.submitForm.bind(this);
-    this.onPageChange = this.onPageChange.bind(this);
   }
 
   loadData() {
@@ -149,29 +144,11 @@ class InteractiveSearch extends React.Component {
     });
   }
 
-  onPageChange(newPage) {
-    updateState(this, {
-      results: {
-        page: { $set: newPage },
-      },
-    });
-
-    animateScrollTo(0);
-  }
-
   render() {
     const { data, loaded, mode, results, filters, sorting } = this.state;
 
     if (!loaded) {
       return <BigSpinner />;
-    }
-
-    let renderer = null;
-    // TODO: will be improved in next commits @zaprvalcer
-    if (results.mode === 'segments') {
-      renderer = SegmentsList;
-    } if (results.mode === 'games') {
-      renderer = GamesList;
     }
 
     return (
@@ -194,16 +171,15 @@ class InteractiveSearch extends React.Component {
           onChange={(input) => updateState(this, input, this.submitForm)}
           onQueryChange={(input) => updateState(this, { filters: { text: { $set: input } } })}
         />
-        {renderer ? (
-          <ResultsPagination
+        {!!results.mode && (
+          <SearchResults
+            mode={results.mode}
             items={results.items}
             page={results.page}
-            onPageChange={this.onPageChange}
-            max={10}
-            renderer={renderer}
-            rendererProps={{ data: { ...data } }}
+            segments={data.segments}
+            onPageChange={(input) => updateState(this, { results: { page: { $set: input } } })}
           />
-        ) : null}
+        )}
       </BasePage>
     );
   }

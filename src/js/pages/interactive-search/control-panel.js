@@ -7,8 +7,7 @@ import DateFilter from './date-filter';
 import Select from './select';
 // Namespace
 import t from '../../constants/texts';
-
-const MODES = ['segments', 'games'];
+import { MODES } from './constants';
 
 const SORT_OPTIONS = {
   segments: ['date'],
