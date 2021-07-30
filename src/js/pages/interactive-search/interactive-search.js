@@ -1,17 +1,18 @@
 import React from 'react';
-import animateScrollTo from 'animated-scroll-to';
 import { Row, Col, Alert } from 'react-bootstrap';
+import flow from 'lodash/flow';
 import { Data } from '../../data';
-import fts, { tokenize } from '../../utils/full-text-search';
 import config from '../../../../config/config.json';
 import updateState from '../../utils/update-state';
 import BasePage from '../../components/base-page';
 import t from '../../constants/texts';
 import BigSpinner from '../../components/big-spinner';
+// Utils
 import Matomo from '../../matomo';
 // Components
 import ControlPanel from './control-panel';
 import SearchResults from './search-results';
+import { filterByText, tokenize } from '../../utils/search';
 
 const convertCategories = (data) => Object.values(data)
   .filter(({ search }) => search !== false)
@@ -19,6 +20,38 @@ const convertCategories = (data) => Object.values(data)
     result[current.id] = current.name;
     return result;
   }, { any: t.mainPage.categoryAny });
+
+const getDateParams = (startDate, endDate) => (endDate
+  ? { $between: [startDate, endDate] }
+  : { $dteq: startDate });
+
+const getGamesFlow = (index, category) => flow([
+  () => index.chain(),
+  (chain) => (category === 'any' ? chain : chain.find({ 'category.id': category })),
+  (chain) => chain.where((item) => item.category.search !== false),
+]);
+
+const getSegmentsFlow = (segments, startDate, endDate) => flow([
+  () => segments.chain(),
+  (chain) => (startDate ? chain.find({ date: getDateParams(startDate, endDate) }) : chain),
+  (chain) => chain.find({ games: { $size: { $gt: 0 } } }),
+]);
+
+const getSortFlow = (chain, sortMode, desc) => {
+  const sortParams = sortMode === 'date'
+    ? [['date', desc], ['segment', desc]]
+    : [['streams', desc], ['date', desc], ['segment', desc]];
+
+  return chain.compoundsort(sortParams);
+};
+
+const executeSearch = ({ mode, data, text, category, startDate, endDate, sortMode, desc }) => flow([
+  mode === 'segments'
+    ? getSegmentsFlow(data.segments, startDate, endDate)
+    : getGamesFlow(data.index, category),
+  (chain) => getSortFlow(chain, sortMode, desc),
+  (chain) => (tokenize(text).length ? filterByText(text, chain.data()) : chain.data()),
+])();
 
 class InteractiveSearch extends React.Component {
   constructor(props) {
@@ -69,68 +102,18 @@ class InteractiveSearch extends React.Component {
   }
 
   submitForm(event) {
-    if (event) {
-      event.preventDefault();
-    }
+    event?.preventDefault();
 
-    const { mode, data: { segments, index }, filters } = this.state;
-    let chain;
+    const { mode, data, sorting: { mode: sortMode, desc }, filters } = this.state;
 
-    if (mode === 'segments') {
-      chain = segments.chain();
+    const results = executeSearch({ mode, data, ...filters, sortMode, desc });
 
-      {
-        const { filters: { startDate, endDate } } = this.state;
-
-        if (startDate) {
-          if (endDate) {
-            chain = chain.find({
-              date: { $between: [startDate, endDate] },
-            });
-          } else {
-            chain = chain.find({ date: { $dteq: startDate } });
-          }
-        }
-      }
-
-      chain = chain.find({ games: { $size: { $gt: 0 } } });
-    } else if (mode === 'games') {
-      chain = index.chain();
-
-      const { category } = filters;
-      if (category !== 'any') {
-        chain = chain.find({ 'category.id': category });
-      }
-
-      chain = chain.where((item) => item.category.search !== false);
-    }
-
-    {
-      const { sorting: { mode: sortMode, desc } } = this.state;
-
-      if (sortMode === 'date') {
-        chain = chain.compoundsort([['date', desc], ['segment', desc]]);
-      } else if (sortMode === 'stream_count' && mode === 'games') {
-        chain = chain.compoundsort([['streams', desc], ['date', desc], ['segment', desc]]);
-      }
-    }
-
-    let results = chain.data();
-
-    {
-      const { filters: { text } } = this.state;
-
-      if (tokenize(text).length > 0) {
-        results = fts(text, results, ({ name }) => name);
-
-        if (event) {
-          Matomo.trackSiteSearch({
-            keyword: text,
-            category: mode,
-            count: results.length,
-          });
-        }
-      }
+    if (event && tokenize(filters.text).length) {
+      Matomo.trackSiteSearch({
+        keyword: filters.text,
+        category: mode,
+        count: results.length,
+      });
     }
 
     updateState(this, {
