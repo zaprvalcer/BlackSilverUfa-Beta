@@ -1,4 +1,4 @@
-export const tokenize = (text) => text
+export const tokenize = (text = '') => text
   .trim()
   .split(' ')
   .map((word) => word.toLowerCase().replaceAll(/[^a-zа-я0-9]+/ig, ''))

@@ -9,11 +9,12 @@ const Layout = ({
   className,
   withFooter,
   children,
+  flex,
   ...rest
 }) => (
   <>
     <Header />
-    <Container className={`main-content ${className}`} {...rest}>
+    <Container className={`main-content ${flex ? 'd-flex' : ''} ${className}`} {...rest}>
       {children}
     </Container>
     {withFooter && <Footer />}
@@ -21,11 +22,13 @@ const Layout = ({
 );
 
 Layout.propTypes = {
+  flex: PropTypes.bool,
   className: PropTypes.string,
   withFooter: PropTypes.bool,
 };
 
 Layout.defaultProps = {
+  flex: false,
   withFooter: true,
   className: '',
 };

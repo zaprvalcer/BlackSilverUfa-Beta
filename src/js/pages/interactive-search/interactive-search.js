@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Row, Col, Alert } from 'react-bootstrap';
+// Utils
 import flow from 'lodash/flow';
 import { Data } from '../../data';
-import config from '../../../../config/config.json';
-import updateState from '../../utils/update-state';
-import BasePage from '../../components/base-page';
-import t from '../../constants/texts';
-import BigSpinner from '../../components/big-spinner';
-// Utils
 import Matomo from '../../matomo';
+import { filterByText, tokenize } from '../../utils/search';
+// Hooks
+import { useComplexState } from '../../hooks/use-complex-state';
+// Namespace
+import t from '../../constants/texts';
+import config from '../../../../config/config.json';
 // Components
+import { Layout, Spinner } from '../../components';
 import ControlPanel from './control-panel';
 import SearchResults from './search-results';
-import { filterByText, tokenize } from '../../utils/search';
 
 const convertCategories = (data) => Object.values(data)
   .filter(({ search }) => search !== false)
@@ -37,135 +38,116 @@ const getSegmentsFlow = (segments, startDate, endDate) => flow([
   (chain) => chain.find({ games: { $size: { $gt: 0 } } }),
 ]);
 
-const getSortFlow = (chain, sortMode, desc) => {
-  const sortParams = sortMode === 'date'
-    ? [['date', desc], ['segment', desc]]
-    : [['streams', desc], ['date', desc], ['segment', desc]];
+const getSortFlow = (chain, sortBy, isDesc) => {
+  const sortParams = sortBy === 'date'
+    ? [['date', isDesc], ['segment', isDesc]]
+    : [['streams', isDesc], ['date', isDesc], ['segment', isDesc]];
 
   return chain.compoundsort(sortParams);
 };
 
-const executeSearch = ({ mode, data, text, category, startDate, endDate, sortMode, desc }) => flow([
+const executeSearch = ({ mode, data, text, category, startDate, endDate, sortBy, isDesc }) => flow([
   mode === 'segments'
     ? getSegmentsFlow(data.segments, startDate, endDate)
     : getGamesFlow(data.index, category),
-  (chain) => getSortFlow(chain, sortMode, desc),
+  (chain) => getSortFlow(chain, sortBy, isDesc),
   (chain) => (tokenize(text).length ? filterByText(text, chain.data()) : chain.data()),
 ])();
 
-class InteractiveSearch extends React.Component {
-  constructor(props) {
-    super(props);
+const reportSearchEvent = (mode, text, count) => {
+  if (!tokenize(text).length) return;
+  Matomo.trackSiteSearch({
+    keyword: text,
+    category: mode,
+    count,
+  });
+};
 
-    this.state = {
-      loaded: false,
-      mode: 'segments',
-      data: {
-        segments: null,
-        categories: null,
-        games: null,
-      },
-      filters: {
-        text: '',
-        category: 'any',
-        startDate: null,
-        endDate: null,
-      },
-      sorting: {
-        mode: 'date',
-        desc: true,
-      },
-      results: {
-        mode: null,
-        items: [],
-        page: 0,
-      },
-    };
+const INIT_DATA = {
+  index: null,
+  segments: null,
+  categories: null,
+};
+const INIT_FILTERS = {
+  text: '',
+  category: 'any',
+  startDate: null,
+  endDate: null,
+};
+const INIT_SORTING = {
+  sortBy: 'date',
+  isDesc: true,
+};
+const INIT_RESULTS = {
+  mode: null,
+  items: [],
+  page: 0,
+};
 
-    this.submitForm = this.submitForm.bind(this);
-  }
+const InteractiveSearch = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [mode, setMode] = useState('segments');
+  const [data, setData] = useComplexState(INIT_DATA);
+  const [filters, updateFilters] = useComplexState(INIT_FILTERS);
+  const [sorting, updateSorting] = useComplexState(INIT_SORTING);
+  const [results, updateResults] = useComplexState(INIT_RESULTS);
 
-  loadData() {
-    return Data.then(({ segments, categories, index }) => {
-      updateState(this, {
-        data: { $merge: { index, segments, categories: convertCategories(categories.data) } },
-        loaded: { $set: true },
-      });
-    });
-  }
+  const loadData = () => Data.then(({ segments, categories, index }) => {
+    setData({ index, segments, categories: convertCategories(categories.data) });
+    setLoading(false);
+  });
 
-  async componentDidMount() {
-    await this.loadData();
-    document.title = `Главная страница | ${config.title}`;
-    Matomo.trackPageView();
-    this.submitForm();
-  }
-
-  submitForm(event) {
+  const submitForm = (event) => {
     event?.preventDefault();
 
-    const { mode, data, sorting: { mode: sortMode, desc }, filters } = this.state;
+    const searchResults = executeSearch({ mode, data, ...filters, ...sorting });
+    updateResults({ mode, items: searchResults, page: 0 });
+    if (event) reportSearchEvent(mode, filters.text, results.length);
+  };
 
-    const results = executeSearch({ mode, data, ...filters, sortMode, desc });
+  useEffect(() => {
+    document.title = `${t.mainPage.title} | ${config.title}`;
+    Matomo.trackPageView();
+    loadData();
+  }, []);
 
-    if (event && tokenize(filters.text).length) {
-      Matomo.trackSiteSearch({
-        keyword: filters.text,
-        category: mode,
-        count: results.length,
-      });
-    }
+  useEffect(() => {
+    if (!data.segments) return;
+    submitForm();
+  }, [data, mode, filters, sorting]);
 
-    updateState(this, {
-      results: {
-        $merge: {
-          mode,
-          items: results,
-          page: 0,
-        },
-      },
-    });
-  }
-
-  render() {
-    const { data, loaded, mode, results, filters, sorting } = this.state;
-
-    if (!loaded) {
-      return <BigSpinner />;
-    }
-
-    return (
-      <BasePage>
-        <Row className="pt-3">
-          <Col>
-            <Alert variant="dark">
-              Поиск ещё находится на стадии разработки. Я планирую добавить больше
-              фильтров, сортировку результатов и доработать оформление :)
-            </Alert>
-          </Col>
-        </Row>
-        <ControlPanel
-          mode={mode}
-          filters={filters}
-          sorting={sorting}
-          segments={data.segments}
-          categories={data.categories}
-          onSubmit={this.submitForm}
-          onChange={(input) => updateState(this, input, this.submitForm)}
-          onQueryChange={(input) => updateState(this, { filters: { text: { $set: input } } })}
-        />
-        {!!results.mode && (
+  return (
+    <Layout flex={isLoading}>
+      {isLoading ? <Spinner /> : (
+        <>
+          <Row className="pt-3">
+            <Col>
+              <Alert variant="dark">{t.mainPage.notification}</Alert>
+            </Col>
+          </Row>
+          <ControlPanel
+            mode={mode}
+            filters={filters}
+            sorting={sorting}
+            segments={data.segments}
+            categories={data.categories}
+            onModeChange={setMode}
+            onFiltersChange={updateFilters}
+            onSortingChange={updateSorting}
+          />
+          {!!results.mode && (
           <SearchResults
             mode={results.mode}
             items={results.items}
             page={results.page}
             segments={data.segments}
-            onPageChange={(input) => updateState(this, { results: { page: { $set: input } } })}
+            onPageChange={(input) => updateResults({ page: input })}
           />
-        )}
-      </BasePage>
-    );
-  }
-}
+          )}
+        </>
+      )}
+    </Layout>
+  );
+};
 
 export default InteractiveSearch;
