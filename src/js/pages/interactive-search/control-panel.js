@@ -104,7 +104,6 @@ ControlPanel.propTypes = {
   segments: PropTypes.object,
   categories: PropTypes.object,
 
-  onSubmit: PropTypes.func.isRequired,
   onModeChange: PropTypes.func.isRequired,
   onFiltersChange: PropTypes.func.isRequired,
   onSortingChange: PropTypes.func.isRequired,
