@@ -11,7 +11,7 @@ import { useComplexState } from '../../hooks/use-complex-state';
 import t from '../../constants/texts';
 import config from '../../../../config/config.json';
 // Components
-import { Layout, Spinner } from '../../components';
+import { Layout } from '../../components';
 import ControlPanel from './control-panel';
 import SearchResults from './search-results';
 
@@ -117,34 +117,31 @@ const InteractiveSearch = () => {
   }, [data, mode, filters, sorting]);
 
   return (
-    <Layout flex={isLoading}>
-      {isLoading ? <Spinner /> : (
-        <>
-          <Row className="pt-3">
-            <Col>
-              <Alert variant="dark">{t.mainPage.notification}</Alert>
-            </Col>
-          </Row>
-          <ControlPanel
-            mode={mode}
-            filters={filters}
-            sorting={sorting}
-            segments={data.segments}
-            categories={data.categories}
-            onModeChange={setMode}
-            onFiltersChange={updateFilters}
-            onSortingChange={updateSorting}
-          />
-          {!!results.mode && (
-          <SearchResults
-            mode={results.mode}
-            items={results.items}
-            page={results.page}
-            segments={data.segments}
-            onPageChange={(input) => updateResults({ page: input })}
-          />
-          )}
-        </>
+    <Layout isLoading={isLoading}>
+
+      <Row className="pt-3">
+        <Col>
+          <Alert variant="dark">{t.mainPage.notification}</Alert>
+        </Col>
+      </Row>
+      <ControlPanel
+        mode={mode}
+        filters={filters}
+        sorting={sorting}
+        segments={data.segments}
+        categories={data.categories}
+        onModeChange={setMode}
+        onFiltersChange={updateFilters}
+        onSortingChange={updateSorting}
+      />
+      {!!results.mode && (
+      <SearchResults
+        mode={results.mode}
+        items={results.items}
+        page={results.page}
+        segments={data.segments}
+        onPageChange={(input) => updateResults({ page: input })}
+      />
       )}
     </Layout>
   );
