@@ -15,22 +15,22 @@ import {
 import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 import { Rnd } from 'react-rnd';
-import { Data } from '../data';
-import SavedPosition from '../utils/saved-position';
-import Persist from '../utils/persist';
-import BasePage from './base-page';
-import Chat from './player/chat';
-import Player from './player/player';
-import Timecodes from './player/timecodes';
-import Scroll from './player/scroll';
-import Playlist from './player/playlist';
-import Reparentable from './utils/reparentable';
-import config from '../../../config/config.json';
-import BigSpinner from './big-spinner';
-import Matomo from '../matomo';
-import Sugar from '../utils/sugar';
-import updateState from '../utils/update-state';
-import { ShareOverlay } from './player/share-overlay';
+import { Data } from '../../data';
+import SavedPosition from '../../utils/saved-position';
+import Persist from '../../utils/persist';
+import BasePage from '../../components/base-page';
+import Chat from '../../components/player/chat';
+import Player from '../../components/player/player';
+import Timecodes from '../../components/player/timecodes';
+import Scroll from '../../components/player/scroll';
+import Playlist from '../../components/player/playlist';
+import Reparentable from '../../components/utils/reparentable';
+import config from '../../../../config/config.json';
+import BigSpinner from '../../components/big-spinner';
+import Matomo from '../../matomo';
+import Sugar from '../../utils/sugar';
+import updateState from '../../utils/update-state';
+import { ShareOverlay } from '../../components/player/share-overlay';
 
 export default class SegmentPlayer extends React.Component {
   createChatContainer() {
@@ -379,7 +379,7 @@ export default class SegmentPlayer extends React.Component {
               $merge: {
                 x: x / width,
                 y: y / height,
-              }
+              },
             },
           });
         }}

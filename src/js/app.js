@@ -12,8 +12,7 @@ import { Button } from 'react-bootstrap';
 import { common as t } from './constants/texts';
 import PATHS from './constants/urls';
 // Components
-import { SearchPage, GamePage } from './pages';
-import PlayerPage from './components/segment-player';
+import { SearchPage, GamePage, PlayerPage } from './pages';
 import { RedirectLinks, RedirectR } from './components/redirects';
 import BasePage from './components/base-page';
 
