@@ -1,1 +1,1 @@
-export * from './interactive-search';
+export * from './main-page';

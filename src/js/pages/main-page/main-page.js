@@ -84,7 +84,7 @@ const INIT_RESULTS = {
   page: 0,
 };
 
-const InteractiveSearch = () => {
+const MainPage = () => {
   const [isLoading, setLoading] = useState(true);
   const [mode, setMode] = useState('segments');
   const [data, setData] = useComplexState(INIT_DATA);
@@ -147,4 +147,4 @@ const InteractiveSearch = () => {
   );
 };
 
-export default InteractiveSearch;
+export default MainPage;
