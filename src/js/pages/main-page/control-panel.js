@@ -7,7 +7,7 @@ import Dropdown from './dropdown';
 import DateFilter from './date-filter';
 import TextFilter from './text-filter';
 // Namespace
-import t from '../../constants/texts';
+import { mainPage as t } from '../../constants/texts';
 import { MODES } from './constants';
 
 const SORT_OPTIONS = {
@@ -49,7 +49,7 @@ const ControlPanel = ({ mode,
                   value={mode}
                   options={MODES}
                   variant="success"
-                  labels={t.mainPage.modes}
+                  labels={t.modes}
                   onChange={(input) => {
                     onModeChange(input);
                     onSortingChange({ sortBy: 'date' });
@@ -73,7 +73,7 @@ const ControlPanel = ({ mode,
                   <Select
                     {...STYLE_CONFIG}
                     value={filters.category}
-                    label={t.mainPage.category}
+                    label={t.category}
                     labels={categories}
                     options={Object.keys(categories)}
                     onChange={(category) => onFiltersChange({ category })}
@@ -82,8 +82,8 @@ const ControlPanel = ({ mode,
               <Select
                 {...STYLE_CONFIG}
                 value={sorting.sortBy}
-                label={t.mainPage.sorting}
-                labels={t.mainPage.sortModes}
+                label={t.sorting}
+                labels={t.sortModes}
                 options={SORT_OPTIONS[mode]}
                 iconClassName={SORT_ICONS[direction]}
                 onIconClick={() => onSortingChange({ isDesc: !sorting.isDesc })}

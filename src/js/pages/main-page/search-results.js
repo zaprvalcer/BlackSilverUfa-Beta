@@ -10,15 +10,15 @@ import Sugar from '../../utils/sugar';
 import { getPluralLabel } from '../../utils/text';
 // Namespace
 import { MODES } from './constants';
-import t from '../../constants/texts';
+import { mainPage as t } from '../../constants/texts';
 
 const getLastDate = (segments) => Sugar.Date.short(segments[segments.length - 1].date);
 const getGameDescription = ({ segments, streams }) => {
-  const totalCount = getPluralLabel(streams, t.mainPage.streams);
+  const totalCount = getPluralLabel(streams, t.streams);
   const startDate = Sugar.Date.short(segments[0].date);
 
   return streams > 1
-    ? `${totalCount} ${t.mainPage.from} ${startDate} ${t.mainPage.to} ${getLastDate(segments)}`
+    ? `${totalCount} ${t.from} ${startDate} ${t.to} ${getLastDate(segments)}`
     : `${totalCount} ${startDate}`;
 };
 

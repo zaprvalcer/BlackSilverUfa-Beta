@@ -8,7 +8,7 @@ import { filterByText, tokenize } from '../../utils/search';
 // Hooks
 import { useComplexState } from '../../hooks/use-complex-state';
 // Namespace
-import t from '../../constants/texts';
+import { mainPage as t } from '../../constants/texts';
 import config from '../../../../config/config.json';
 // Components
 import { Layout } from '../../components';
@@ -20,7 +20,7 @@ const convertCategories = (data) => Object.values(data)
   .reduce((result, current) => {
     result[current.id] = current.name;
     return result;
-  }, { any: t.mainPage.categoryAny });
+  }, { any: t.categoryAny });
 
 const getDateParams = (startDate, endDate) => (endDate
   ? { $between: [startDate, endDate] }
@@ -106,7 +106,7 @@ const MainPage = () => {
   };
 
   useEffect(() => {
-    document.title = `${t.mainPage.title} | ${config.title}`;
+    document.title = `${t.title} | ${config.title}`;
     Matomo.trackPageView();
     loadData();
   }, []);
@@ -121,7 +121,7 @@ const MainPage = () => {
 
       <Row className="pt-3">
         <Col>
-          <Alert variant="dark">{t.mainPage.notification}</Alert>
+          <Alert variant="dark">{t.notification}</Alert>
         </Col>
       </Row>
       <ControlPanel

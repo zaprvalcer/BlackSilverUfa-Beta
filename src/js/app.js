@@ -9,7 +9,7 @@ import {
 import { ReactRouterGlobalHistory } from 'react-router-global-history';
 import { Button } from 'react-bootstrap';
 // Namespace
-import t from './constants/texts';
+import { common as t } from './constants/texts';
 import PATHS from './constants/urls';
 // Components
 import { MainPage } from './pages';
