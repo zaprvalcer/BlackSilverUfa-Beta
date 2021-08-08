@@ -6,11 +6,9 @@ import {
   Button,
   Col,
   ListGroup,
-  OverlayTrigger,
   Row,
   Tab,
   Tabs,
-  Tooltip,
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
@@ -30,7 +28,7 @@ import BigSpinner from '../../components/big-spinner';
 import Matomo from '../../matomo';
 import Sugar from '../../utils/sugar';
 import updateState from '../../utils/update-state';
-import { ShareOverlay } from '../../components/player/share-overlay';
+import PlayerControls from './player-controls';
 
 export default class SegmentPlayer extends React.Component {
   createChatContainer() {
@@ -399,58 +397,6 @@ export default class SegmentPlayer extends React.Component {
       >
         {this.renderChat()}
       </Rnd>
-    );
-  }
-
-  renderPlayerControls() {
-    const {
-      toggleFullscreen,
-      segment: { segment, abs_start: absStart },
-      game: { id: game },
-      currentTime,
-    } = this.state;
-
-    return (
-      <Row className="no-gutters">
-        <Col>
-          <div className="player-controls border-top border-bottom">
-            <div className="flex-grow-1" />
-
-            <OverlayTrigger
-              trigger="click"
-              rootClose
-              placement="top"
-              overlay={(
-                <ShareOverlay
-                  game={game}
-                  segment={segment}
-                  offset={absStart}
-                  currentTime={currentTime}
-                />
-              )}
-            >
-              <Button variant="dark" size="sm" className="mr-2">
-                <i className="fas fa-share-square" />
-                <span>Поделиться</span>
-              </Button>
-            </OverlayTrigger>
-
-            <OverlayTrigger
-              placement="top"
-              overlay={(props) => (
-                <Tooltip {...props}>
-                  Развернуть плеер на весь экран
-                </Tooltip>
-              )}
-            >
-              <Button variant="dark" size="sm" onClick={toggleFullscreen}>
-                <i className="fas fa-expand" />
-                <span>На весь экран</span>
-              </Button>
-            </OverlayTrigger>
-          </div>
-        </Col>
-      </Row>
     );
   }
 
@@ -836,6 +782,8 @@ export default class SegmentPlayer extends React.Component {
       },
     } = this;
 
+    const { toggleFullscreen, segment, game, currentTime } = this.state;
+
     return (
       <BasePage fluid flex noFooter>
         {subtitles && ReactDOM.createPortal(this.renderChat(), chatContainer)}
@@ -845,7 +793,13 @@ export default class SegmentPlayer extends React.Component {
 
           <Col className="d-flex flex-column">
             {this.renderPlayer()} {/* Can't be moved without reloading */}
-            {this.renderPlayerControls()}
+            <PlayerControls
+              game={game.id}
+              segment={segment.segment}
+              offset={segment.abs_start}
+              currentTime={currentTime}
+              onFullScreenToggle={toggleFullscreen}
+            />
             {this.renderBelowPlayer()}
           </Col>
 

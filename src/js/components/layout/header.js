@@ -4,7 +4,7 @@ import { Badge, Container, Nav, Navbar } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import HeaderQuickSearch from './header-quick-search';
 // Namespace
-import PATHS from '../../constants/urls';
+import { PATHS } from '../../constants/urls';
 import config from '../../../../config/config.json';
 // Hooks
 import { useDataStore } from '../../hooks/use-data-store';

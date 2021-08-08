@@ -10,7 +10,7 @@ import { ReactRouterGlobalHistory } from 'react-router-global-history';
 import { Button } from 'react-bootstrap';
 // Namespace
 import { common as t } from './constants/texts';
-import PATHS from './constants/urls';
+import { PATHS } from './constants/urls';
 // Components
 import { SearchPage, GamePage, PlayerPage } from './pages';
 import { RedirectLinks, RedirectR } from './components/redirects';
