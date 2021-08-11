@@ -7,7 +7,7 @@ import Dropdown from './dropdown';
 import DateFilter from './date-filter';
 import TextFilter from './text-filter';
 // Namespace
-import { mainPage as t } from '../../constants/texts';
+import { searchPage as t } from '../../constants/texts';
 import { MODES } from './constants';
 
 const SORT_OPTIONS = {

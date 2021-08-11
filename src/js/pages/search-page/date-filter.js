@@ -6,11 +6,11 @@ import Dropdown from './dropdown';
 import DateRangePicker from './date-range-picker';
 import DatePicker from './date-picker';
 // Namespace
-import { mainPage as t } from '../../constants/texts';
+import { searchPage as t } from '../../constants/texts';
 import { SCALES } from './constants';
 // Utils
 import Sugar from '../../utils/sugar';
-import { getPluralLabel } from '../../utils/text';
+import { getStreamsLabel } from './utils';
 
 const getRange = (date, scale) => {
   if (!date) {
@@ -42,7 +42,7 @@ const getIntervalSummary = ({ date, view, segments, maxDate }) => {
 
   const range = getRange(date, view);
   const count = segments.count({ date: { $between: range } });
-  return (<div>{getPluralLabel(count, t.streams)}</div>);
+  return (<div>{getStreamsLabel(count)}</div>);
 };
 
 const getDayClassName = ({ date, segments }) => {

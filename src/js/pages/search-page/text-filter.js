@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // Components
 import { Button, Form, InputGroup } from 'react-bootstrap';
 // Namespace
-import { mainPage as t } from '../../constants/texts';
+import { searchPage as t } from '../../constants/texts';
 
 const TextFilter = ({ onSubmit }) => {
   const [value, setValue] = useState('');

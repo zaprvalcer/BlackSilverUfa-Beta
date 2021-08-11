@@ -1,2 +1,2 @@
 export * from './common';
-export * from './main-page';
+export * from './search-page';

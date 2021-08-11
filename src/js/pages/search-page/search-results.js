@@ -7,14 +7,14 @@ import Pagination from '@vlsergey/react-bootstrap-pagination';
 // Utils
 import animateScrollTo from 'animated-scroll-to';
 import Sugar from '../../utils/sugar';
-import { getPluralLabel } from '../../utils/text';
+import { getStreamsLabel } from './utils';
 // Namespace
 import { MODES } from './constants';
-import { mainPage as t } from '../../constants/texts';
+import { searchPage as t } from '../../constants/texts';
 
 const getLastDate = (segments) => Sugar.Date.short(segments[segments.length - 1].date);
 const getGameDescription = ({ segments, streams }) => {
-  const totalCount = getPluralLabel(streams, t.streams);
+  const totalCount = getStreamsLabel(streams);
   const startDate = Sugar.Date.short(segments[0].date);
 
   return streams > 1

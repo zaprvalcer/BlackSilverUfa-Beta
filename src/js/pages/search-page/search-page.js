@@ -8,7 +8,7 @@ import { filterByText, tokenize } from '../../utils/search';
 // Hooks
 import { useComplexState } from '../../hooks/use-complex-state';
 // Namespace
-import { mainPage as t } from '../../constants/texts';
+import { searchPage as t } from '../../constants/texts';
 import config from '../../../../config/config.json';
 // Components
 import { Layout } from '../../components';
@@ -84,7 +84,7 @@ const INIT_RESULTS = {
   page: 0,
 };
 
-const MainPage = () => {
+const SearchPage = () => {
   const [isLoading, setLoading] = useState(true);
   const [mode, setMode] = useState('segments');
   const [data, setData] = useComplexState(INIT_DATA);
@@ -147,4 +147,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default SearchPage;
