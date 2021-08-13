@@ -1,16 +1,15 @@
 import { find } from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import CustomScroll from 'react-custom-scroll';
 import {
   Accordion,
   Button,
   Col,
-  ListGroup,
   Row,
   Tab,
   Tabs,
 } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 import { Rnd } from 'react-rnd';
 import { Data } from '../../data';
@@ -26,9 +25,10 @@ import Reparentable from '../../components/utils/reparentable';
 import config from '../../../../config/config.json';
 import BigSpinner from '../../components/big-spinner';
 import Matomo from '../../matomo';
-import Sugar from '../../utils/sugar';
 import updateState from '../../utils/update-state';
+// Components
 import PlayerControls from './player-controls';
+import Description from './description';
 
 export default class SegmentPlayer extends React.Component {
   createChatContainer() {
@@ -615,84 +615,6 @@ export default class SegmentPlayer extends React.Component {
     );
   }
 
-  renderDescription() {
-    const {
-      game,
-      segment,
-      segmentRef,
-    } = this.state;
-
-    return (
-      <Row className="stream-description">
-        <Col>
-          <h3>
-            <Link to={`/play/${game.id}`}>{game.name}</Link>
-            <span> — </span>
-            <span className="flex-grow-1">{segmentRef.name}</span>
-          </h3>
-
-          <ListGroup variant="flush" size="sm">
-            <ListGroup.Item>
-              Дата стрима:
-              {' '}
-              {Sugar.Date.medium(segment.date)}
-              {' '}
-              ({Sugar.Date.relative(segment.date)})
-            </ListGroup.Item>
-
-            {!segment.segment.startsWith('00') ? (
-              <ListGroup.Item>
-                Источник стрима:
-                {' '}
-                <a href={`https://twitch.tv/videos/${segment.segment}`} target="blank">
-                  <i className="fab fa-twitch" />
-                  <span>Twitch</span>
-                </a>
-                {' '}
-                (ID: <code>{segment.segment}</code>)
-              </ListGroup.Item>
-            ) : (
-              <ListGroup.Item>
-                ID стрима: <code>{segment.segment}</code>
-              </ListGroup.Item>
-            )}
-
-            <ListGroup.Item>
-              Источник записи:
-              {' '}
-              {segment.youtube ? (
-                <>
-                  <a href={`https://youtu.be/${segment.youtube}`} target="blank">
-                    <i className="fab fa-youtube" />
-                    <span>YouTube</span>
-                  </a>
-                  {' '}
-                  ({segment.official === false ? 'неофициальный' : 'официальный'} канал)
-                </>
-              ) : (
-                <a href={segment.direct}>
-                  <i className="fas fa-link" />
-                  <span>Прямая ссылка</span>
-                </a>
-              )}
-            </ListGroup.Item>
-
-            {segment.torrent && (
-              <ListGroup.Item>
-                Торрент:
-                {' '}
-                <a href={segment.torrent}>
-                  <i className="fas fa-download" />
-                  <span>Скачать</span>
-                </a>
-              </ListGroup.Item>
-            )}
-          </ListGroup>
-        </Col>
-      </Row>
-    );
-  }
-
   renderBelowPlayer() {
     const {
       chatContainer,
@@ -700,16 +622,17 @@ export default class SegmentPlayer extends React.Component {
         fullscreen,
         playlists,
         timecodes,
-        segment: {
-          subtitles,
-        },
+        game,
+        segmentRef,
+        segment,
       },
     } = this;
+    const { subtitles } = segment;
 
     return (
       <>
         <MediaQuery minDeviceWidth={768}>
-          {this.renderDescription()}
+          <Description game={game} stream={segment} part={segmentRef.name} />
         </MediaQuery>
 
         <MediaQuery maxDeviceWidth={767}>
@@ -720,10 +643,12 @@ export default class SegmentPlayer extends React.Component {
                   <Tabs mountOnEnter>
                     <Tab eventKey="description" title="Описание">
                       {!subtitlesInTab ? (
-                        <Scroll flex="1 1 0">
-                          {this.renderDescription()}
-                        </Scroll>
-                      ) : this.renderDescription()}
+                        <CustomScroll flex="1 1 0">
+                          <Description game={game} stream={segment} part={segmentRef.name} />
+                        </CustomScroll>
+                      ) : (
+                        <Description game={game} stream={segment} part={segmentRef.name} />
+                      )}
                     </Tab>
 
                     {timecodes && (

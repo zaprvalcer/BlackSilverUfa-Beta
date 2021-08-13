@@ -1,3 +1,5 @@
+export const YOUTUBE = 'https://youtu.be';
+export const TWITCH = 'https://twitch.tv/videos';
 export const BASE = 'https://bsu.us.to';
 export const PATHS = {
   HOME: '/',
