@@ -214,6 +214,23 @@ h3>.badge {
   margin-left: 1em;
 }
 
+.nav-button {
+  color: #007bff;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+
+  &:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+
+  &.visited {
+    color: #e0e;
+  }
+}
+
 .visited {
   color: purple;
 }
@@ -320,7 +337,7 @@ h3>.badge {
   $i: 0;
 
   @each $color in $timecodeColors {
-    & .list-group.timecodes-nested-#{$i} {
+    & .list-group.timecodes-nested-#{$i+1} {
       &:not(:last-child) > :last-child {
         border-bottom: none;
       }

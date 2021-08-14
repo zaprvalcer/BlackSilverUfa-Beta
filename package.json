@@ -53,6 +53,7 @@
     "@vlsergey/react-bootstrap-pagination": "^1.0.1",
     "animated-scroll-to": "^2.0.10",
     "bootstrap": "^4.6.0",
+    "classnames": "^2.3.1",
     "fetchline": "^1.0.1",
     "immutability-helper": "^3.1.1",
     "lodash": "^4.17.21",

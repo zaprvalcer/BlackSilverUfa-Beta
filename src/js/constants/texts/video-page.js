@@ -16,4 +16,5 @@ export const videoPage = {
   nonOfficialChannel: 'неофициальный канал',
   directLink: 'Прямая ссылка',
   downloadButton: 'Скачать',
+  timecodesTitle: 'Таймкоды',
 };

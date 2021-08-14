@@ -1,7 +1,6 @@
 import { find } from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CustomScroll from 'react-custom-scroll';
 import {
   Accordion,
   Button,
@@ -18,8 +17,6 @@ import Persist from '../../utils/persist';
 import BasePage from '../../components/base-page';
 import Chat from '../../components/player/chat';
 import Player from '../../components/player/player';
-import Timecodes from '../../components/player/timecodes';
-import Scroll from '../../components/player/scroll';
 import Playlist from '../../components/player/playlist';
 import Reparentable from '../../components/utils/reparentable';
 import config from '../../../../config/config.json';
@@ -27,8 +24,10 @@ import BigSpinner from '../../components/big-spinner';
 import Matomo from '../../matomo';
 import updateState from '../../utils/update-state';
 // Components
-import PlayerControls from './player-controls';
+import { AutoScroll } from '../../components';
 import Description from './description';
+import PlayerControls from './player-controls';
+import TimecodesPanel from './timecodes-panel';
 
 export default class SegmentPlayer extends React.Component {
   createChatContainer() {
@@ -440,27 +439,6 @@ export default class SegmentPlayer extends React.Component {
     );
   }
 
-  renderTimecodes() {
-    const {
-      timecodes, setTime, currentTime,
-    } = this.state;
-
-    return (
-      <>
-        <div className="sidebar-header">
-          Таймкоды
-        </div>
-        <Scroll flex="1 1 0">
-          <Timecodes
-            data={timecodes}
-            setTime={setTime}
-            currentTime={currentTime}
-          />
-        </Scroll>
-      </>
-    );
-  }
-
   onPlaylistAccordionSelect(eventKey) {
     this.setState({ playlistAccordion: eventKey });
   }
@@ -511,6 +489,8 @@ export default class SegmentPlayer extends React.Component {
     const {
       sidebarCollapsed,
       timecodes,
+      setTime,
+      currentTime,
       playlists,
       segment: {
         subtitles,
@@ -546,7 +526,13 @@ export default class SegmentPlayer extends React.Component {
               </div>
 
               {playlists && this.renderPlaylist()}
-              {timecodes && this.renderTimecodes()}
+              {timecodes && (
+              <TimecodesPanel
+                data={timecodes}
+                onTimeChange={setTime}
+                currentTime={currentTime}
+              />
+              )}
 
               <div className="collapsed-content">
                 {playlists && (
@@ -567,7 +553,13 @@ export default class SegmentPlayer extends React.Component {
           <MediaQuery minDeviceWidth={768} maxDeviceWidth={1199}>
             <Col className="col-sidebar border-right collapsed" tabIndex="0">
               {playlists && this.renderPlaylist()}
-              {timecodes && this.renderTimecodes()}
+              {timecodes && (
+              <TimecodesPanel
+                data={timecodes}
+                onTimeChange={setTime}
+                currentTime={currentTime}
+              />
+              )}
 
               <div className="collapsed-content">
                 {playlists && (
@@ -592,6 +584,8 @@ export default class SegmentPlayer extends React.Component {
         fullscreen,
         playlists,
         timecodes,
+        setTime,
+        currentTime,
         segment: {
           subtitles,
         },
@@ -609,7 +603,13 @@ export default class SegmentPlayer extends React.Component {
             <Reparentable el={chatContainer} className="flex-1-1-0" />
           )}
           {(!subtitles && playlists) && this.renderPlaylist()}
-          {(!subtitles && timecodes) && this.renderTimecodes()}
+          {(!subtitles && timecodes) && (
+          <TimecodesPanel
+            data={timecodes}
+            onTimeChange={setTime}
+            currentTime={currentTime}
+          />
+          )}
         </Col>
       </MediaQuery>
     );
@@ -622,6 +622,8 @@ export default class SegmentPlayer extends React.Component {
         fullscreen,
         playlists,
         timecodes,
+        setTime,
+        currentTime,
         game,
         segmentRef,
         segment,
@@ -643,9 +645,9 @@ export default class SegmentPlayer extends React.Component {
                   <Tabs mountOnEnter>
                     <Tab eventKey="description" title="Описание">
                       {!subtitlesInTab ? (
-                        <CustomScroll flex="1 1 0">
+                        <AutoScroll flex="1 1 0">
                           <Description game={game} stream={segment} part={segmentRef.name} />
-                        </CustomScroll>
+                        </AutoScroll>
                       ) : (
                         <Description game={game} stream={segment} part={segmentRef.name} />
                       )}
@@ -653,7 +655,11 @@ export default class SegmentPlayer extends React.Component {
 
                     {timecodes && (
                       <Tab eventKey="timecodes" title="Таймкоды">
-                        {this.renderTimecodes()}
+                        <TimecodesPanel
+                          data={timecodes}
+                          onTimeChange={setTime}
+                          currentTime={currentTime}
+                        />
                       </Tab>
                     )}
 
